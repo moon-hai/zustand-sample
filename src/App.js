@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import BearControls from './components/BearControls/BearControls';
+import FruitControls from './components/FruitControls/FruitControls';
+import shallow from 'zustand/shallow'
+import { useBearStore } from './store/bear';
+import { useFruitStore } from './store/fruit';
 
 function App() {
+  const bearCounterState = useBearStore((state) => state.bears)
+  const { mango } = useFruitStore(state => state.fruits, shallow)
+
+  console.log('re-render')
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {bearCounterState}
+
+      <BearControls />
+
+      <br />
+      <br />
+
+      {mango}
+      <br />
+      <FruitControls />
     </div>
   );
 }
